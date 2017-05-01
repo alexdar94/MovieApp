@@ -57,8 +57,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWW-7c-xX7" customClass="GradientTextBackgroundView" customModule="MovieApp" customModuleProvider="target">
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="0.17605684432515337" colorSpace="calibratedWhite"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWW-7c-xX7">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="4wh-jR-SXl"/>
                                                     </constraints>
@@ -119,6 +118,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateTextView" destination="hDm-sq-hpy" id="oGL-vh-YzD"/>
+                                            <outlet property="gradientTextBackgroundView" destination="ZWW-7c-xX7" id="Zxm-8M-jDS"/>
                                             <outlet property="posterImageView" destination="fAD-p0-GQS" id="QiN-3f-4FZ"/>
                                             <outlet property="priceTextView" destination="1Ww-I6-CGB" id="yKc-zN-lSL"/>
                                             <outlet property="shadowView" destination="wA7-4k-yfM" id="FQW-tA-3KY"/>

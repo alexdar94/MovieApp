@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import ChameleonFramework
 
 class TopMoviesTableViewCell: UITableViewCell {
 
@@ -16,6 +17,7 @@ class TopMoviesTableViewCell: UITableViewCell {
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var priceTextView: UITextView!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var gradientTextBackgroundView: UIView!
     
     var movie: Movie?{
         didSet {
@@ -44,7 +46,20 @@ class TopMoviesTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        posterImageView.layer.masksToBounds = true;
+        posterImageView.layer.masksToBounds = true
         posterImageView.layer.cornerRadius = 5
+        gradientTextBackgroundView.layer.masksToBounds = true
+        let mask = CAGradientLayer()
+        //mask.frame = gradientTextBackgroundView.bounds
+        mask.frame = CGRect(origin: CGPoint(x: 0, y: 0),
+                            size: UIScreen.main.bounds.size)
+        mask.startPoint = CGPoint(x: 0, y: 0)
+        mask.endPoint = CGPoint(x: 1, y: 1)
+        let color = UIColor.black
+        mask.colors = [color.withAlphaComponent(0.0).cgColor,color.withAlphaComponent(1.0)]
+        mask.locations = [NSNumber(value: 0.0),NSNumber(value: 1.0)]
+        gradientTextBackgroundView.layer.mask = mask
     }
+    
+    
 }

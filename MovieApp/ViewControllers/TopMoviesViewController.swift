@@ -13,6 +13,7 @@ import SwiftyJSON
 class TopMoviesViewController: UIViewController {
     
     @IBOutlet weak var topMoviesTableView: UITableView!
+    var topMovieAPI = "https://itunes.apple.com/us/rss/topmovies/limit=25/json"
     var topMovies: [Movie]! {
         didSet{
             topMoviesTableView.reloadData()
@@ -21,8 +22,8 @@ class TopMoviesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        Alamofire.request("https://itunes.apple.com/us/rss/topmovies/limit=25/json").responseJSON { response in
+
+        Alamofire.request(topMovieAPI).responseJSON { response in
             switch response.result {
             case .success:
                 if let swiftyJSON = response.result.value {
@@ -53,7 +54,6 @@ class TopMoviesViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,7 +71,7 @@ class TopMoviesViewController: UIViewController {
 }
 
 // MARK: TableView Methods
-extension TopMoviesViewController: UITableViewDataSource{
+extension TopMoviesViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.topMovies?.count ?? 0
     }
@@ -80,14 +80,12 @@ extension TopMoviesViewController: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "topMoviesTableViewCell", for: indexPath as IndexPath) as! TopMoviesTableViewCell
         
         cell.movie = topMovies[indexPath.row]
-//        let formatter = NSDateFormatter()
-//        formatter.dateFormat = "HH:mm"
-//        cell.lastMessageTimeLabel.text = formatter.stringFromDate(chatRoom.lastMessageTime)
 
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
 }

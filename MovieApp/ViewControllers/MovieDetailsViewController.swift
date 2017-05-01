@@ -23,6 +23,8 @@ class MovieDetailsViewController: UIViewController {
         priceTextView.text = movie.price;
         dateTextView.text = movie.date;
         
+        // If there is HD poster, use HD poster
+        // Else use low resolution poster
         if let posterHDUrl = movie.posterHDUrl {
             posterImageView.af_setImage(
                 withURL: URL(string: posterHDUrl)!
@@ -37,21 +39,11 @@ class MovieDetailsViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // "View in iTunes" button clicked, launch browser to view movie from iTunes
     @IBAction func onClick(_ sender: UIButton) {
-        UIApplication.shared.open(URL(string: movie.link)!)
+        UIApplication.shared.open(URL(string: "itms://itunes.apple.com/us/movie/la-la-land/id1179249419?uo=2")!)
     }
 
 }

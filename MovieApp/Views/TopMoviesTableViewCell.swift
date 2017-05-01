@@ -23,7 +23,7 @@ class TopMoviesTableViewCell: UITableViewCell {
             dateTextView.text = movie?.date
             priceTextView.text = movie?.price
             
-            if let posterUrl = movie?.posterUrl {
+            if let posterUrl = movie?.posterHDUrl! {
                 //print(posterUrl)
                 posterImageView.af_setImage(
                     withURL: URL(string: posterUrl)!

@@ -57,6 +57,12 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWW-7c-xX7" customClass="GradientTextBackgroundView" customModule="MovieApp" customModuleProvider="target">
+                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="0.17605684432515337" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="4wh-jR-SXl"/>
+                                                    </constraints>
+                                                </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Date" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDm-sq-hpy">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -87,15 +93,18 @@
                                                 <constraint firstItem="HDH-nj-8kK" firstAttribute="top" secondItem="hDm-sq-hpy" secondAttribute="bottom" constant="3" id="0zY-b2-N17"/>
                                                 <constraint firstAttribute="trailing" secondItem="wA7-4k-yfM" secondAttribute="trailing" constant="5" id="1Nd-Nq-Dwl"/>
                                                 <constraint firstItem="wA7-4k-yfM" firstAttribute="top" secondItem="AVn-zA-YJb" secondAttribute="bottom" constant="1" id="1Ta-Td-P4g"/>
+                                                <constraint firstItem="ZWW-7c-xX7" firstAttribute="leading" secondItem="DaI-1E-zzY" secondAttribute="leadingMargin" id="9tn-km-ogu"/>
                                                 <constraint firstItem="HDH-nj-8kK" firstAttribute="top" secondItem="wA7-4k-yfM" secondAttribute="bottom" constant="1" id="EAX-yj-ZPF"/>
                                                 <constraint firstItem="dEQ-rd-b69" firstAttribute="top" secondItem="AVn-zA-YJb" secondAttribute="bottom" constant="2" id="Ec5-W8-qjo"/>
                                                 <constraint firstItem="dEQ-rd-b69" firstAttribute="leading" secondItem="DaI-1E-zzY" secondAttribute="leadingMargin" id="FYH-OW-ht3"/>
                                                 <constraint firstItem="wA7-4k-yfM" firstAttribute="leading" secondItem="DaI-1E-zzY" secondAttribute="leading" constant="5" id="HH3-Kf-foF"/>
                                                 <constraint firstItem="HDH-nj-8kK" firstAttribute="leading" secondItem="DaI-1E-zzY" secondAttribute="leading" id="Nno-2c-wFZ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZWW-7c-xX7" secondAttribute="bottom" constant="3" id="PwU-f2-c66"/>
                                                 <constraint firstItem="dEQ-rd-b69" firstAttribute="trailing" secondItem="DaI-1E-zzY" secondAttribute="trailingMargin" id="Pz0-lK-A0w"/>
                                                 <constraint firstItem="AVn-zA-YJb" firstAttribute="leading" secondItem="DaI-1E-zzY" secondAttribute="leading" id="WuW-Gy-Uxd"/>
                                                 <constraint firstAttribute="trailing" secondItem="HDH-nj-8kK" secondAttribute="trailing" id="ZDr-rF-k7j"/>
                                                 <constraint firstAttribute="trailing" secondItem="1Ww-I6-CGB" secondAttribute="trailing" constant="8" id="Zi6-U8-ScZ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZWW-7c-xX7" secondAttribute="trailing" id="dEq-b5-C5X"/>
                                                 <constraint firstAttribute="trailing" secondItem="fAD-p0-GQS" secondAttribute="trailing" constant="5" id="e3d-iU-sJw"/>
                                                 <constraint firstItem="1Ww-I6-CGB" firstAttribute="leading" secondItem="hDm-sq-hpy" secondAttribute="trailing" constant="20" id="eAQ-p1-Nj3"/>
                                                 <constraint firstAttribute="bottom" secondItem="HDH-nj-8kK" secondAttribute="bottom" id="jga-Zp-fjF"/>

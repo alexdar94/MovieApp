@@ -10,13 +10,14 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Floaty
+import Toast_Swift
 
 class TopMoviesViewController: UIViewController {
     
     @IBOutlet weak var topMoviesTableView: UITableView!
     @IBOutlet weak var luckyFAB: Floaty!
     var topMovieAPI = "https://itunes.apple.com/us/rss/topmovies/limit=25/json"
-    var topMovies: [Movie]! {
+    var topMovies: [Movie]? {
         didSet{
             topMoviesTableView.reloadData()
         }
@@ -25,6 +26,7 @@ class TopMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Fetch top 25 movies from iTunes API
         Alamofire.request(topMovieAPI).responseJSON { response in
             switch response.result {
             case .success:
@@ -49,7 +51,7 @@ class TopMoviesViewController: UIViewController {
                     }
                 }
             case .failure(let error):
-                print(error)
+                self.view.makeToast("No network connection.")
             }
         }
         
@@ -57,7 +59,12 @@ class TopMoviesViewController: UIViewController {
         luckyFAB.addGestureRecognizer(tapGesture)
     }
 
+    // Floating button click listener
     func onFABClicked(_ sender: UITapGestureRecognizer) {
+        guard topMovies != nil else {
+            self.view.makeToast("No movie found :(")
+            return
+        }
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
     
@@ -65,18 +72,22 @@ class TopMoviesViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    // Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "toDetailsVC" {
                 let movieDetailsViewController = segue.destination as! MovieDetailsViewController
-                // If segue from table view cell
-                if let index = topMoviesTableView.indexPathForSelectedRow{
-                    movieDetailsViewController.movie = topMovies[index.row]
-                }
-                // If segue from FAB, randomly select movie
-                else {
-                    let randomInt = Int(arc4random_uniform(25))
-                    movieDetailsViewController.movie = topMovies[randomInt]
+                if let topMovies = topMovies{
+                    // If segue from table view cell
+                    if let index = topMoviesTableView.indexPathForSelectedRow{
+                        movieDetailsViewController.movie = topMovies[index.row]
+                    }
+                    // If segue from FAB, randomly select a movie
+                    else {
+                        let randomInt = Int(arc4random_uniform(25))
+                        movieDetailsViewController.movie = topMovies[randomInt]
+                        movieDetailsViewController.isRandom = true
+                    }
                 }
             }
         }
@@ -94,6 +105,7 @@ extension TopMoviesViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Display table view cell with animation
         let view = cell.contentView
         view.layer.opacity = 0.1
         UIView.animate(withDuration: 1.4) {
@@ -104,7 +116,7 @@ extension TopMoviesViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "topMoviesTableViewCell", for: indexPath as IndexPath) as! TopMoviesTableViewCell
         
-        cell.movie = topMovies[indexPath.row]
+        cell.movie = topMovies?[indexPath.row]
 
         return cell
     }

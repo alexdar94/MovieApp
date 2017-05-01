@@ -18,56 +18,38 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var dateTextView: UITextView!
     @IBOutlet weak var posterImageView: UIImageView!
     
+    var isRandom = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // If it's random, display message
+        if isRandom {self.view.makeToast("I'm feeling lucky!", duration:2.0, position: .center)}
+        
         titleTextView.text = movie.title;
         priceTextView.text = movie.price;
         dateTextView.text = movie.date;
         
         // If there is HD poster, use HD poster
         // Else use low resolution poster
-        if let posterHDUrl = movie.posterHDUrl {
-            posterImageView.af_setImage(
-                withURL: URL(string: posterHDUrl)!
-                , placeholderImage: UIImage(named: "movie")!)
-        } else {
-            posterImageView.af_setImage(
-                withURL: URL(string: movie.posterUrl)!
-                , placeholderImage: UIImage(named: "movie")!)
-        }
-        
-//        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
-//        tapGestureRecognizer.numberOfTapsRequired = 1
-//        self.player.view.addGestureRecognizer(tapGestureRecognizer)
+        let posterURL = movie.posterHDUrl ?? movie.posterUrl
+        posterImageView.af_setImage(
+            withURL: URL(string: posterURL)!
+            , placeholderImage: UIImage(named: "movie")!)
     }
-    
-    //    func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-    //        switch (self.player.playbackState.rawValue) {
-    //        case PlaybackState.stopped.rawValue:
-    //            self.player.playFromBeginning()
-    //        case PlaybackState.paused.rawValue:
-    //            self.player.playFromCurrentTime()
-    //        case PlaybackState.playing.rawValue:
-    //            self.player.pause()
-    //        case PlaybackState.failed.rawValue:
-    //            self.player.pause()
-    //        default:
-    //            self.player.pause()
-    //        }
-    //    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // Play trailer if trailer url existed
         if let videoURL = movie.videoUrl{
             let player = AVPlayer(url: URL(string:videoURL)!)
             let playerLayer = AVPlayerLayer(player: player)
             let dateTextViewFrame = dateTextView.frame
-            
             playerLayer.frame = CGRect(x: dateTextViewFrame.origin.x,
-                                       y: dateTextViewFrame.origin.y ,
+                                       y: dateTextViewFrame.origin.y + 10,
                                        width: UIScreen.main.bounds.width - 50,
                                        height: 300)
             self.view.layer.addSublayer(playerLayer)
@@ -76,16 +58,18 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
-    // "View in iTunes" button clicked, launch browser to view movie from iTunes
+    // "View on iTunes" button clicked, launch browser to view movie in iTunes App
     @IBAction func onClick(_ sender: UIButton) {
         var itunesLink = movie.link
         // Remove https header from movie link
+        // Then add itms header
         let index = itunesLink.index(itunesLink.startIndex, offsetBy: 5)
-        itunesLink = itunesLink.substring(from: index)
+        itunesLink = "itms\(itunesLink.substring(from: index))"
+        print(itunesLink)
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string: "itms\(itunesLink)")!)
+            UIApplication.shared.open(URL(string: itunesLink)!)
         } else {
-            UIApplication.shared.openURL(URL(string: "itms\(itunesLink)")!)
+            UIApplication.shared.openURL(URL(string: itunesLink)!)
         }
     }
 

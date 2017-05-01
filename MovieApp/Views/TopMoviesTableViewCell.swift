@@ -25,7 +25,6 @@ class TopMoviesTableViewCell: UITableViewCell {
             priceTextView.text = movie?.price
             
             if let posterUrl = movie?.posterHDUrl! {
-                //print(posterUrl)
                 posterImageView.af_setImage(
                     withURL: URL(string: posterUrl)!
                     , placeholderImage: UIImage(named: "movie")!)
@@ -40,7 +39,6 @@ class TopMoviesTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
@@ -48,6 +46,4 @@ class TopMoviesTableViewCell: UITableViewCell {
         posterImageView.layer.masksToBounds = true
         posterImageView.layer.cornerRadius = 5
     }
-    
-    
 }

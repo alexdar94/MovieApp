@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class MovieDetailsViewController: UIViewController {
     var movie: Movie!
@@ -35,15 +37,56 @@ class MovieDetailsViewController: UIViewController {
                 , placeholderImage: UIImage(named: "movie")!)
         }
         
+//        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+//        tapGestureRecognizer.numberOfTapsRequired = 1
+//        self.player.view.addGestureRecognizer(tapGestureRecognizer)
     }
-
+    
+    //    func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+    //        switch (self.player.playbackState.rawValue) {
+    //        case PlaybackState.stopped.rawValue:
+    //            self.player.playFromBeginning()
+    //        case PlaybackState.paused.rawValue:
+    //            self.player.playFromCurrentTime()
+    //        case PlaybackState.playing.rawValue:
+    //            self.player.pause()
+    //        case PlaybackState.failed.rawValue:
+    //            self.player.pause()
+    //        default:
+    //            self.player.pause()
+    //        }
+    //    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let videoURL = movie.videoUrl{
+            let player = AVPlayer(url: URL(string:videoURL)!)
+            let playerLayer = AVPlayerLayer(player: player)
+            let dateTextViewFrame = dateTextView.frame
+            
+            playerLayer.frame = CGRect(x: dateTextViewFrame.origin.x,
+                                       y: dateTextViewFrame.origin.y ,
+                                       width: UIScreen.main.bounds.width - 50,
+                                       height: 300)
+            self.view.layer.addSublayer(playerLayer)
+            
+            player.play()
+        }
+    }
+    
     // "View in iTunes" button clicked, launch browser to view movie from iTunes
     @IBAction func onClick(_ sender: UIButton) {
-        UIApplication.shared.open(URL(string: "itms://itunes.apple.com/us/movie/la-la-land/id1179249419?uo=2")!)
+        var itunesLink = movie.link
+        // Remove https header from movie link
+        let index = itunesLink.index(itunesLink.startIndex, offsetBy: 5)
+        itunesLink = itunesLink.substring(from: index)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string: "itms\(itunesLink)")!)
+        } else {
+            UIApplication.shared.openURL(URL(string: "itms\(itunesLink)")!)
+        }
     }
 
 }

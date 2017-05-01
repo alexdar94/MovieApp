@@ -10,7 +10,7 @@ target 'MovieApp' do
   pod 'SwiftyJSON'
   pod 'AlamofireImage', '~> 3.1'
   pod 'SSBouncyButton', '~> 1.0'
-  pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+  pod "Floaty", "~> 3.0.0"
 
   target 'MovieAppTests' do
     inherit! :search_paths

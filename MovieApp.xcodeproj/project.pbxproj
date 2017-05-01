@@ -275,6 +275,7 @@
 				TargetAttributes = {
 					FA4E09D61EB5CFA400DF7B54 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 4BHHL63438;
 						ProvisioningStyle = Automatic;
 					};
 					FA4E09EA1EB5CFA400DF7B54 = {
@@ -634,7 +635,9 @@
 			baseConfigurationReference = 974C818A28CBADC811467D8E /* Pods-MovieApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4BHHL63438;
 				INFOPLIST_FILE = MovieApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.MovieApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -647,7 +650,9 @@
 			baseConfigurationReference = 9A7DD60C62AD856C77CEE987 /* Pods-MovieApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4BHHL63438;
 				INFOPLIST_FILE = MovieApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.MovieApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

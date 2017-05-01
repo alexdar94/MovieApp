@@ -15,6 +15,7 @@ class TopMoviesTableViewCell: UITableViewCell {
     @IBOutlet weak var dateTextView: UITextView!
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var priceTextView: UITextView!
+    @IBOutlet weak var shadowView: UIView!
     
     var movie: Movie?{
         didSet {
@@ -41,5 +42,9 @@ class TopMoviesTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    override func layoutSubviews() {
+        posterImageView.layer.masksToBounds = true;
+        posterImageView.layer.cornerRadius = 5
+    }
 }

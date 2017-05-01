@@ -76,6 +76,14 @@ extension TopMoviesViewController: UITableViewDataSource, UITableViewDelegate{
         return self.topMovies?.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let view = cell.contentView
+        view.layer.opacity = 0.1
+        UIView.animate(withDuration: 1.4) {
+            view.layer.opacity = 1
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "topMoviesTableViewCell", for: indexPath as IndexPath) as! TopMoviesTableViewCell
         
